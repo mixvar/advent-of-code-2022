@@ -1,4 +1,5 @@
 import run from "aocrunner";
+import * as Utils from "../utils/index.js";
 
 type Calories = number;
 type ParsedInput = Calories[][];
@@ -12,10 +13,8 @@ const parseInput = (rawInput: string): ParsedInput =>
 
 const part1 = (rawInput: string) => {
   const input = parseInput(rawInput);
-  const totals = input.map((calorieSet) =>
-    calorieSet.reduce((sum, it) => sum + it, 0),
-  );
-  const maximum = totals.reduce((max, it) => (it > max ? it : max), 0);
+  const totals = input.map((calorieSet) => Utils.Arr.sum(calorieSet));
+  const maximum = Utils.Arr.max(totals);
 
   return maximum;
 };
@@ -24,17 +23,12 @@ const part2 = (rawInput: string) => {
   const CARRIER_COUNT = 3;
 
   const input = parseInput(rawInput);
-  const totals = input.map((calorieSet) =>
-    calorieSet.reduce((sum, it) => sum + it, 0),
-  );
+  const totals = input.map((calorieSet) => Utils.Arr.sum(calorieSet));
 
   const topCalorieCounts = totals
     .sort((a, b) => a - b)
     .slice(-1 * CARRIER_COUNT);
-  const totalTopCalorieCount = topCalorieCounts.reduce(
-    (sum, it) => sum + it,
-    0,
-  );
+  const totalTopCalorieCount = Utils.Arr.sum(topCalorieCounts);
 
   return totalTopCalorieCount;
 };
