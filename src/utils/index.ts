@@ -5,6 +5,9 @@ export namespace Arr {
   export const sum = (it: readonly number[]) =>
     it.reduce((acc, el) => acc + el, 0);
 
+  export const naturalNumbers = (count: number, offset = 0) =>
+    [...Array(count).keys()].map((_, i) => i + offset);
+
   export const splitIntoChunksByLength = <T>(
     it: readonly T[],
     chunkLength: number,
@@ -26,4 +29,8 @@ export namespace Arr {
 
       return acc;
     }, [] as T[][]);
+}
+
+export namespace Predicate {
+  export const notNullable = <T>(it: T): it is NonNullable<T> => it != null;
 }
